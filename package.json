@@ -1,0 +1,26 @@
+{
+  "name": "@inside-tech/general-firestore",
+  "version": "0.0.5",
+  "author": "Leandro F M Leal",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "prepublish": "rm -rf dist/ && npm run build",
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.2.5",
+    "typescript": "^5.0.4"
+  },
+  "dependencies": {
+    "@google-cloud/firestore": "^6.6.0",
+    "@types/emojione": "^2.2.6",
+    "emojione": "^4.5.0"
+  }
+}
