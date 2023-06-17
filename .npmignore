@@ -1,1 +1,4 @@
 lib/
+tests/
+babel.config.js
+.gitignore

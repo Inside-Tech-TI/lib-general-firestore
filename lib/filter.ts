@@ -7,6 +7,8 @@ import {
 import { conditionalVarsMap } from "./conditions";
 import type { ConditionalValue, Offset } from "./types";
 
+export const sum = (a: number, b: number) => a + b;
+
 export const getCondition = (alias: string): WhereFilterOp | undefined => {
   return conditionalVarsMap.get(alias);
 };
