@@ -38,7 +38,7 @@ export class GeneralFirestore {
     return getGeneralFirestoreInstance(collection, privateKey, clientEmail);
   }
 
-  public async getById<T>(id: string): Promise<T> {
+  public async getById<T>(id: string): Promise<T | null> {
     return await filterById<T>(this.fireStoreInstance, this.collection, id);
   }
 

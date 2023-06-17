@@ -22,8 +22,11 @@ export const filterById = async <T>(
   firestore: Firestore,
   collection_name: string,
   object_id: string
-): Promise<T> => {
+): Promise<T | null> => {
   const ref_doc = `${collection_name}/${object_id}`;
   const document = await firestore.doc(ref_doc).get();
-  return Object.assign({}, { id: object_id }, document.data() as T);
+  if (document.data()) {
+    return Object.assign({}, { id: object_id }, document.data() as T);
+  }
+  return null;
 };
