@@ -25,8 +25,9 @@ export const filterById = async <T>(
 ): Promise<T | null> => {
   const ref_doc = `${collection_name}/${object_id}`;
   const document = await firestore.doc(ref_doc).get();
-  if (document.data()) {
-    return Object.assign({}, { id: object_id }, document.data() as T);
+  console.log({ documentData: document.data() });
+  if (!document.data()) {
+    return null;
   }
-  return null;
+  return Object.assign({}, { id: object_id }, document.data() as T);
 };
