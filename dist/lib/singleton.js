@@ -10,7 +10,7 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Singleton = void 0;
-var Singleton = /** @class */ (function () {
+var Singleton = exports.Singleton = /** @class */ (function () {
     function Singleton() {
     }
     Singleton.getInstance = function (key, clas) {
@@ -26,4 +26,3 @@ var Singleton = /** @class */ (function () {
     Singleton.instances = new Map();
     return Singleton;
 }());
-exports.Singleton = Singleton;

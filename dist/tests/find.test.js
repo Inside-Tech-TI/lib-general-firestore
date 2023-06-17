@@ -36,19 +36,20 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var globals_1 = require("@jest/globals");
 var lib_1 = require("../lib");
 require("dotenv").config();
-var collection = lib_1.GeneralFirestore.getInstance("non-existant", process.env.FIRESTORE_PRIVATE_KEY, process.env.FIRESTORE_CLIENT_EMAIL);
-(0, globals_1.describe)("sum module", function () {
-    (0, globals_1.test)("Return null from filterById a non existant id", function () { return __awaiter(void 0, void 0, void 0, function () {
+var collection = function (col) {
+    return lib_1.GeneralFirestore.getInstance(col, process.env.FIRESTORE_PRIVATE_KEY, process.env.FIRESTORE_CLIENT_EMAIL);
+};
+describe("sum module", function () {
+    test("Return null from filterById a non existant id", function () { return __awaiter(void 0, void 0, void 0, function () {
         var result;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, collection.getById("non-existant")];
+                case 0: return [4 /*yield*/, collection("opa").getById("non-existant")];
                 case 1:
                     result = _a.sent();
-                    (0, globals_1.expect)(result).toBe(null);
+                    expect(result).toBe(null);
                     return [2 /*return*/];
             }
         });
