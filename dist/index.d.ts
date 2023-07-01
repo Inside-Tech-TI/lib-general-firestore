@@ -5,7 +5,7 @@ export declare class GeneralFirestore {
     private readonly collection;
     constructor(collection: string, privateKey?: string, clientEmail?: string);
     static getInstance(collection: string, privateKey?: string, clientEmail?: string): GeneralFirestore;
-    getById<T>(id: string): Promise<T>;
+    getById<T>(id: string): Promise<T | null>;
     find<T>(filter?: FilterObject, select?: FilterObject, offset?: Offset): Promise<T[]>;
     insert(data: {
         [key: string]: any;

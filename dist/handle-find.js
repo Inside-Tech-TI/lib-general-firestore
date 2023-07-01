@@ -56,7 +56,10 @@ var filterById = function (firestore, collection_name, object_id) { return __awa
                 return [4 /*yield*/, firestore.doc(ref_doc).get()];
             case 1:
                 document = _a.sent();
-                return [2 /*return*/, Object.assign({}, { id: object_id }, document.data())];
+                if (document.data()) {
+                    return [2 /*return*/, Object.assign({}, { id: object_id }, document.data())];
+                }
+                return [2 /*return*/, null];
         }
     });
 }); };
