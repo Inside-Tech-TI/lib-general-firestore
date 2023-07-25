@@ -117,6 +117,11 @@ export const filterByPropertyWithTotal = async <T = unknown>(
       (conditionalValue.conditional as WhereFilterOp | undefined) ?? "==",
       conditionalValue.value
     );
+    countQuery = countQuery.where(
+      key,
+      (conditionalValue.conditional as WhereFilterOp | undefined) ?? "==",
+      conditionalValue.value
+    );
   }
 
   if (select) {
