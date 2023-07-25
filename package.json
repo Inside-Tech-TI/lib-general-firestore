@@ -1,7 +1,7 @@
 {
   "name": "@inside-tech/general-firestore",
-  "version": "0.0.9",
-  "author": "Leandro F M Leal",
+  "version": "0.1.5",
+  "author": "Leandro F M Leal, Renato Seiji Miawaki",
   "license": "MIT",
   "main": "dist/index.js",
   "module": "dist/index.js",

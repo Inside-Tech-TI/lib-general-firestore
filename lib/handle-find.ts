@@ -1,5 +1,5 @@
 import type { Firestore } from "@google-cloud/firestore";
-import { filterByProperty } from "./filter";
+import { filterByProperty, filterByPropertyWithTotal } from "./filter";
 import { PaginationRequest } from "./types";
 
 export const handleFind = async <T>(
@@ -7,17 +7,36 @@ export const handleFind = async <T>(
   collection_name: string,
   filter: Record<string, unknown> = {},
   select?: unknown,
-  offset?: PaginationRequest
+  offset?: PaginationRequest,
+  orderBy?: string
 ): Promise<T[]> => {
   return filterByProperty<T>(
     firestore,
     collection_name,
     filter,
     select,
-    offset
+    offset,
+    orderBy
   );
 };
 
+export const handleFindWithTotal = async <T>(
+  firestore: Firestore,
+  collection_name: string,
+  filter: Record<string, unknown> = {},
+  select?: unknown,
+  offset?: PaginationRequest,
+  orderBy?: string
+): Promise<{ total: number; data: T[] }> => {
+  return filterByPropertyWithTotal<T>(
+    firestore,
+    collection_name,
+    filter,
+    select,
+    offset,
+    orderBy
+  );
+};
 export const filterById = async <T>(
   firestore: Firestore,
   collection_name: string,

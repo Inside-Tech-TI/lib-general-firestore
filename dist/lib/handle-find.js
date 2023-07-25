@@ -36,17 +36,26 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.filterById = exports.handleFind = void 0;
+exports.filterById = exports.handleFindWithTotal = exports.handleFind = void 0;
 var filter_1 = require("./filter");
-var handleFind = function (firestore, collection_name, filter, select, offset) {
+var handleFind = function (firestore, collection_name, filter, select, offset, orderBy) {
     if (filter === void 0) { filter = {}; }
     return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
-            return [2 /*return*/, (0, filter_1.filterByProperty)(firestore, collection_name, filter, select, offset)];
+            return [2 /*return*/, (0, filter_1.filterByProperty)(firestore, collection_name, filter, select, offset, orderBy)];
         });
     });
 };
 exports.handleFind = handleFind;
+var handleFindWithTotal = function (firestore, collection_name, filter, select, offset, orderBy) {
+    if (filter === void 0) { filter = {}; }
+    return __awaiter(void 0, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            return [2 /*return*/, (0, filter_1.filterByPropertyWithTotal)(firestore, collection_name, filter, select, offset, orderBy)];
+        });
+    });
+};
+exports.handleFindWithTotal = handleFindWithTotal;
 var filterById = function (firestore, collection_name, object_id) { return __awaiter(void 0, void 0, void 0, function () {
     var ref_doc, document;
     return __generator(this, function (_a) {

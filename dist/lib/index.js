@@ -42,6 +42,7 @@ var handle_update_1 = require("./handle-update");
 var handle_find_1 = require("./handle-find");
 var handle_insert_1 = require("./handle-insert");
 var singleton_1 = require("./singleton");
+var handle_delete_1 = require("./handle-delete");
 var getGeneralFirestoreInstance = function (collection, privateKey, clientEmail) {
     return singleton_1.Singleton.getInstance("firestore-wrapper-".concat(collection).concat(privateKey ? "-".concat(privateKey) : "").concat(clientEmail ? "-".concat(clientEmail) : ""), GeneralFirestore, collection, privateKey, clientEmail);
 };
@@ -75,11 +76,21 @@ var GeneralFirestore = /** @class */ (function () {
             });
         });
     };
-    GeneralFirestore.prototype.find = function (filter, select, offset) {
+    GeneralFirestore.prototype.find = function (filter, select, offset, orderBy) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, (0, handle_find_1.handleFind)(this.fireStoreInstance, this.collection, filter, select, offset)];
+                    case 0: return [4 /*yield*/, (0, handle_find_1.handleFind)(this.fireStoreInstance, this.collection, filter, select, offset, orderBy)];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    GeneralFirestore.prototype.findWithTotal = function (filter, select, offset, orderBy) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, (0, handle_find_1.handleFindWithTotal)(this.fireStoreInstance, this.collection, filter, select, offset, orderBy)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });
@@ -103,6 +114,16 @@ var GeneralFirestore = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, (0, handle_update_1.handleUpdate)(this.fireStoreInstance, this.collection, data, data.id)];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    GeneralFirestore.prototype.delete = function (id) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, (0, handle_delete_1.handleDelete)(this.fireStoreInstance, this.collection, id)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });

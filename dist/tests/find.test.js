@@ -35,18 +35,96 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __asyncValues = (this && this.__asyncValues) || function (o) {
+    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+    var m = o[Symbol.asyncIterator], i;
+    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
+    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
+    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var lib_1 = require("../lib");
 require("dotenv").config();
 var collection = function (col) {
     return lib_1.GeneralFirestore.getInstance(col, process.env.FIRESTORE_PRIVATE_KEY, process.env.FIRESTORE_CLIENT_EMAIL);
 };
+var collectionTestName = "test_collection";
+var firestore = collection(collectionTestName);
+var itens = [
+    { id: "a", a: 2, b: 1, name: "test1" },
+    { id: "b", a: 4, b: 2, name: "test2" },
+    { id: "c", a: 6, b: 3, name: "test3" },
+    { id: "d", a: 8, b: 4, name: "test4" },
+    { id: "e", a: 10, b: 5, name: "test5" },
+];
 describe("sum module", function () {
+    test("Upsert itens", function () { return __awaiter(void 0, void 0, void 0, function () {
+        var _a, itens_1, itens_1_1, item, result, e_1_1;
+        var _b, e_1, _c, _d;
+        return __generator(this, function (_e) {
+            switch (_e.label) {
+                case 0:
+                    _e.trys.push([0, 8, 9, 14]);
+                    _a = true, itens_1 = __asyncValues(itens);
+                    _e.label = 1;
+                case 1: return [4 /*yield*/, itens_1.next()];
+                case 2:
+                    if (!(itens_1_1 = _e.sent(), _b = itens_1_1.done, !_b)) return [3 /*break*/, 7];
+                    _d = itens_1_1.value;
+                    _a = false;
+                    _e.label = 3;
+                case 3:
+                    _e.trys.push([3, , 5, 6]);
+                    item = _d;
+                    return [4 /*yield*/, firestore.insert(item)];
+                case 4:
+                    result = _e.sent();
+                    expect(result).not.toBe(null);
+                    expect(result.id).toBe(item.id);
+                    return [3 /*break*/, 6];
+                case 5:
+                    _a = true;
+                    return [7 /*endfinally*/];
+                case 6: return [3 /*break*/, 1];
+                case 7: return [3 /*break*/, 14];
+                case 8:
+                    e_1_1 = _e.sent();
+                    e_1 = { error: e_1_1 };
+                    return [3 /*break*/, 14];
+                case 9:
+                    _e.trys.push([9, , 12, 13]);
+                    if (!(!_a && !_b && (_c = itens_1.return))) return [3 /*break*/, 11];
+                    return [4 /*yield*/, _c.call(itens_1)];
+                case 10:
+                    _e.sent();
+                    _e.label = 11;
+                case 11: return [3 /*break*/, 13];
+                case 12:
+                    if (e_1) throw e_1.error;
+                    return [7 /*endfinally*/];
+                case 13: return [7 /*endfinally*/];
+                case 14: return [2 /*return*/];
+            }
+        });
+    }); });
+    test("Find itens", function () { return __awaiter(void 0, void 0, void 0, function () {
+        var result;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, firestore.findWithTotal({}, undefined, { limit: 2, skip: 0 })];
+                case 1:
+                    result = _a.sent();
+                    expect(result.total).toBeGreaterThan(2);
+                    expect(result.data.length).toBe(2);
+                    return [2 /*return*/];
+            }
+        });
+    }); });
     test("Return null from filterById a non existant id", function () { return __awaiter(void 0, void 0, void 0, function () {
         var result;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, collection("opa").getById("non-existant")];
+                case 0: return [4 /*yield*/, firestore.getById("non-existant")];
                 case 1:
                     result = _a.sent();
                     expect(result).toBe(null);
