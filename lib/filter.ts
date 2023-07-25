@@ -99,12 +99,16 @@ export const filterByPropertyWithTotal = async <T = unknown>(
   filter: Record<string, unknown>,
   select?: unknown,
   offset?: Offset,
-  orderBy?: string
+  orderBy?: string,
+  orderDirection: string = "asc"
 ): Promise<{ total: number; data: T[] }> => {
   const collectionReference: CollectionReference =
     firestore.collection(collection);
   if (orderBy) {
-    collectionReference.orderBy(orderBy);
+    collectionReference.orderBy(
+      orderBy,
+      orderDirection == "asc" ? "asc" : "desc"
+    );
   }
   let query: Query = collectionReference
     .limit(offset?.limit ?? 30)
