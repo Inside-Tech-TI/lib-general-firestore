@@ -1,9 +1,10 @@
-import { Firestore } from "@google-cloud/firestore";
+import { Firestore, WriteResult } from "@google-cloud/firestore";
 import { handleUpdate } from "./handle-update";
-import { filterById, handleFind } from "./handle-find";
+import { filterById, handleFind, handleFindWithTotal } from "./handle-find";
 import type { DocumentWithId, FilterObject, Offset } from "./types";
 import { handleInsert } from "./handle-insert";
 import { Singleton } from "./singleton";
+import { handleDelete } from "./handle-delete";
 
 export const getGeneralFirestoreInstance = (
   collection: string,
@@ -45,14 +46,32 @@ export class GeneralFirestore {
   public async find<T>(
     filter?: FilterObject,
     select?: FilterObject,
-    offset?: Offset
+    offset?: Offset,
+    orderBy?: string
   ): Promise<T[]> {
     return await handleFind<T>(
       this.fireStoreInstance,
       this.collection,
       filter,
       select,
-      offset
+      offset,
+      orderBy
+    );
+  }
+
+  public async findWithTotal<T>(
+    filter?: FilterObject,
+    select?: FilterObject,
+    offset?: Offset,
+    orderBy?: string
+  ): Promise<{ total: number; data: T[] }> {
+    return await handleFindWithTotal<T>(
+      this.fireStoreInstance,
+      this.collection,
+      filter,
+      select,
+      offset,
+      orderBy
     );
   }
 
@@ -78,6 +97,10 @@ export class GeneralFirestore {
       data,
       data.id
     );
+  }
+
+  public async delete(id: string): Promise<WriteResult> {
+    return await handleDelete(this.fireStoreInstance, this.collection, id);
   }
 
   public healthCheck(): boolean {
