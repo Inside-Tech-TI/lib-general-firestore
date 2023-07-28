@@ -104,15 +104,17 @@ export const filterByPropertyWithTotal = async <T = unknown>(
 ): Promise<{ total: number; data: T[] }> => {
   const collectionReference: CollectionReference =
     firestore.collection(collection);
+  let query: Query;
   if (orderBy) {
-    collectionReference.orderBy(
-      orderBy,
-      orderDirection == "asc" ? "asc" : "desc"
-    );
+    query = collectionReference
+      .orderBy(orderBy, orderDirection == "asc" ? "asc" : "desc")
+      .limit(offset?.limit ?? 30)
+      .offset(offset?.skip ?? 0);
+  } else {
+    query = collectionReference
+      .limit(offset?.limit ?? 30)
+      .offset(offset?.skip ?? 0);
   }
-  let query: Query = collectionReference
-    .limit(offset?.limit ?? 30)
-    .offset(offset?.skip ?? 0);
   let countQuery: Query = collectionReference;
   for (const key in filter) {
     const conditionalValue = getConditionalValue(filter[key]);
