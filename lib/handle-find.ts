@@ -8,7 +8,8 @@ export const handleFind = async <T>(
   filter: Record<string, unknown> = {},
   select?: unknown,
   offset?: PaginationRequest,
-  orderBy?: string
+  orderBy?: string,
+  orderDirection?: string
 ): Promise<T[]> => {
   return filterByProperty<T>(
     firestore,
@@ -16,7 +17,8 @@ export const handleFind = async <T>(
     filter,
     select,
     offset,
-    orderBy
+    orderBy,
+    orderDirection
   );
 };
 
@@ -26,7 +28,8 @@ export const handleFindWithTotal = async <T>(
   filter: Record<string, unknown> = {},
   select?: unknown,
   offset?: PaginationRequest,
-  orderBy?: string
+  orderBy?: string,
+  orderDirection?: string
 ): Promise<{ total: number; data: T[] }> => {
   return filterByPropertyWithTotal<T>(
     firestore,
@@ -34,7 +37,8 @@ export const handleFindWithTotal = async <T>(
     filter,
     select,
     offset,
-    orderBy
+    orderBy,
+    orderDirection
   );
 };
 export const filterById = async <T>(

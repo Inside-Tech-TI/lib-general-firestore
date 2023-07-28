@@ -47,7 +47,8 @@ export class GeneralFirestore {
     filter?: FilterObject,
     select?: FilterObject,
     offset?: Offset,
-    orderBy?: string
+    orderBy?: string,
+    orderDirection?: string
   ): Promise<T[]> {
     return await handleFind<T>(
       this.fireStoreInstance,
@@ -55,7 +56,8 @@ export class GeneralFirestore {
       filter,
       select,
       offset,
-      orderBy
+      orderBy,
+      orderDirection
     );
   }
 
@@ -63,7 +65,8 @@ export class GeneralFirestore {
     filter?: FilterObject,
     select?: FilterObject,
     offset?: Offset,
-    orderBy?: string
+    orderBy?: string,
+    orderDirection?: string
   ): Promise<{ total: number; data: T[] }> {
     return await handleFindWithTotal<T>(
       this.fireStoreInstance,
@@ -71,7 +74,8 @@ export class GeneralFirestore {
       filter,
       select,
       offset,
-      orderBy
+      orderBy,
+      orderDirection
     );
   }
 
