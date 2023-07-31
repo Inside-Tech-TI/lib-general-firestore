@@ -9,7 +9,7 @@ export const handleFind = async <T>(
   select?: unknown,
   offset?: PaginationRequest,
   orderBy?: string,
-  orderDirection?: string
+  direction?: string
 ): Promise<T[]> => {
   return filterByProperty<T>(
     firestore,
@@ -18,7 +18,7 @@ export const handleFind = async <T>(
     select,
     offset,
     orderBy,
-    orderDirection
+    direction
   );
 };
 
