@@ -79,6 +79,17 @@ describe("Upsert and find", () => {
     expect(result.total).toBeGreaterThan(4);
     expect(result.data[1].name).toBe(itens[itens.length - 2].name);
   });
+  test("orderBy name desc without total", async () => {
+    const result = await firestore.find<{
+      id: string;
+      a: number;
+      b: number;
+      name: string;
+      type: string;
+    }>({}, undefined, { limit: 93, skip: 0 }, "id", "desc");
+    expect(result.length).toBeGreaterThan(1);
+    expect(result[1].name).toBe(itens[itens.length - 2].name);
+  });
   test("Return null from filterById a non existant id", async () => {
     const result = await firestore.getById<number>("non-existant");
     expect(result).toBe(null);
