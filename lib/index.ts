@@ -48,7 +48,7 @@ export class GeneralFirestore {
     select?: FilterObject,
     offset?: Offset,
     orderBy?: string,
-    orderDirection?: string
+    direction?: string
   ): Promise<T[]> {
     return await handleFind<T>(
       this.fireStoreInstance,
@@ -57,7 +57,7 @@ export class GeneralFirestore {
       select,
       offset,
       orderBy,
-      orderDirection
+      direction
     );
   }
 
