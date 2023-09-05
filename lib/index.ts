@@ -119,12 +119,15 @@ export class GeneralFirestore {
       privateKey && clientEmail
         ? `${privateKey}${clientEmail}`
         : `${process.env.FIRESTORE_PRIVATE_KEY}${process.env.FIRESTORE_CLIENT_EMAIL}`;
-
-    return Singleton.getInstance<Firestore>(key, Firestore, {
-      credentials: {
-        private_key: privateKey || process.env.FIRESTORE_PRIVATE_KEY,
-        client_email: clientEmail || process.env.FIRESTORE_CLIENT_EMAIL,
-      },
-    });
+    const config: any | undefined =
+      privateKey && clientEmail
+        ? {
+            credentials: {
+              private_key: privateKey || process.env.FIRESTORE_PRIVATE_KEY,
+              client_email: clientEmail || process.env.FIRESTORE_CLIENT_EMAIL,
+            },
+          }
+        : undefined;
+    return Singleton.getInstance<Firestore>(key, Firestore, config);
   };
 }
