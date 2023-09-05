@@ -38,20 +38,20 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.filterById = exports.handleFindWithTotal = exports.handleFind = void 0;
 var filter_1 = require("./filter");
-var handleFind = function (firestore, collection_name, filter, select, offset, orderBy) {
+var handleFind = function (firestore, collection_name, filter, select, offset, orderBy, direction) {
     if (filter === void 0) { filter = {}; }
     return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
-            return [2 /*return*/, (0, filter_1.filterByProperty)(firestore, collection_name, filter, select, offset, orderBy)];
+            return [2 /*return*/, (0, filter_1.filterByProperty)(firestore, collection_name, filter, select, offset, orderBy, direction)];
         });
     });
 };
 exports.handleFind = handleFind;
-var handleFindWithTotal = function (firestore, collection_name, filter, select, offset, orderBy) {
+var handleFindWithTotal = function (firestore, collection_name, filter, select, offset, orderBy, orderDirection) {
     if (filter === void 0) { filter = {}; }
     return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
-            return [2 /*return*/, (0, filter_1.filterByPropertyWithTotal)(firestore, collection_name, filter, select, offset, orderBy)];
+            return [2 /*return*/, (0, filter_1.filterByPropertyWithTotal)(firestore, collection_name, filter, select, offset, orderBy, orderDirection)];
         });
     });
 };

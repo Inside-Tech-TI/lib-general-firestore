@@ -84,86 +84,103 @@ var getConditionalValue = function (arg) {
     return conditionalValue;
 };
 exports.getConditionalValue = getConditionalValue;
-var filterByProperty = function (firestore, collection, filter, select, offset, orderBy) { return __awaiter(void 0, void 0, void 0, function () {
-    var collectionReference, query, key, conditionalValue, selectFilter, response, items;
-    var _a, _b, _c;
-    return __generator(this, function (_d) {
-        switch (_d.label) {
-            case 0:
-                collectionReference = firestore.collection(collection);
-                if (orderBy) {
-                    collectionReference.orderBy(orderBy);
-                }
-                query = collectionReference
-                    .limit((_a = offset === null || offset === void 0 ? void 0 : offset.limit) !== null && _a !== void 0 ? _a : 30)
-                    .offset((_b = offset === null || offset === void 0 ? void 0 : offset.skip) !== null && _b !== void 0 ? _b : 0);
-                for (key in filter) {
-                    conditionalValue = (0, exports.getConditionalValue)(filter[key]);
-                    query = query.where(key, (_c = conditionalValue.conditional) !== null && _c !== void 0 ? _c : "==", conditionalValue.value);
-                }
-                if (select) {
-                    selectFilter = Object.keys(select);
-                    query = query.select.apply(query, selectFilter);
-                }
-                if (!offset) {
-                    offset = {
-                        skip: 0,
-                        limit: 30,
-                    };
-                }
-                return [4 /*yield*/, query.get()];
-            case 1:
-                response = _d.sent();
-                items = response.docs.map(function (doc) {
-                    var data = doc.data();
-                    return __assign({ id: doc.id }, data);
-                });
-                return [2 /*return*/, items];
-        }
+var filterByProperty = function (firestore, collection, filter, select, offset, orderBy, orderDirection) {
+    if (orderDirection === void 0) { orderDirection = "asc"; }
+    return __awaiter(void 0, void 0, void 0, function () {
+        var collectionReference, query, key, conditionalValue, selectFilter, response, items;
+        var _a, _b, _c, _d, _e;
+        return __generator(this, function (_f) {
+            switch (_f.label) {
+                case 0:
+                    collectionReference = firestore.collection(collection);
+                    if (orderBy) {
+                        query = collectionReference
+                            .orderBy(orderBy, orderDirection == "asc" ? "asc" : "desc")
+                            .limit((_a = offset === null || offset === void 0 ? void 0 : offset.limit) !== null && _a !== void 0 ? _a : 30)
+                            .offset((_b = offset === null || offset === void 0 ? void 0 : offset.skip) !== null && _b !== void 0 ? _b : 0);
+                    }
+                    else {
+                        query = collectionReference
+                            .limit((_c = offset === null || offset === void 0 ? void 0 : offset.limit) !== null && _c !== void 0 ? _c : 30)
+                            .offset((_d = offset === null || offset === void 0 ? void 0 : offset.skip) !== null && _d !== void 0 ? _d : 0);
+                    }
+                    for (key in filter) {
+                        conditionalValue = (0, exports.getConditionalValue)(filter[key]);
+                        query = query.where(key, (_e = conditionalValue.conditional) !== null && _e !== void 0 ? _e : "==", conditionalValue.value);
+                    }
+                    if (select) {
+                        selectFilter = Object.keys(select);
+                        query = query.select.apply(query, selectFilter);
+                    }
+                    if (!offset) {
+                        offset = {
+                            skip: 0,
+                            limit: 30,
+                        };
+                    }
+                    return [4 /*yield*/, query.get()];
+                case 1:
+                    response = _f.sent();
+                    items = response.docs.map(function (doc) {
+                        var data = doc.data();
+                        return __assign({ id: doc.id }, data);
+                    });
+                    return [2 /*return*/, items];
+            }
+        });
     });
-}); };
+};
 exports.filterByProperty = filterByProperty;
-var filterByPropertyWithTotal = function (firestore, collection, filter, select, offset, orderBy) { return __awaiter(void 0, void 0, void 0, function () {
-    var collectionReference, query, countQuery, key, conditionalValue, selectFilter, total, response, items;
-    var _a, _b, _c;
-    return __generator(this, function (_d) {
-        switch (_d.label) {
-            case 0:
-                collectionReference = firestore.collection(collection);
-                if (orderBy) {
-                    collectionReference.orderBy(orderBy);
-                }
-                query = collectionReference
-                    .limit((_a = offset === null || offset === void 0 ? void 0 : offset.limit) !== null && _a !== void 0 ? _a : 30)
-                    .offset((_b = offset === null || offset === void 0 ? void 0 : offset.skip) !== null && _b !== void 0 ? _b : 0);
-                countQuery = collectionReference;
-                for (key in filter) {
-                    conditionalValue = (0, exports.getConditionalValue)(filter[key]);
-                    query = query.where(key, (_c = conditionalValue.conditional) !== null && _c !== void 0 ? _c : "==", conditionalValue.value);
-                }
-                if (select) {
-                    selectFilter = Object.keys(select);
-                    query = query.select.apply(query, selectFilter);
-                    countQuery = countQuery.select.apply(countQuery, selectFilter);
-                }
-                if (!offset) {
-                    offset = {
-                        skip: 0,
-                        limit: 30,
-                    };
-                }
-                return [4 /*yield*/, countQuery.count().get()];
-            case 1:
-                total = (_d.sent()).data().count;
-                return [4 /*yield*/, query.get()];
-            case 2:
-                response = _d.sent();
-                items = response.docs.map(function (doc) {
-                    var data = doc.data();
-                    return __assign({ id: doc.id }, data);
-                });
-                return [2 /*return*/, { total: total, data: items }];
-        }
+var filterByPropertyWithTotal = function (firestore, collection, filter, select, offset, orderBy, orderDirection) {
+    if (orderDirection === void 0) { orderDirection = "asc"; }
+    return __awaiter(void 0, void 0, void 0, function () {
+        var collectionReference, query, countQuery, key, conditionalValue, selectFilter, total, response, items;
+        var _a, _b, _c, _d, _e, _f;
+        return __generator(this, function (_g) {
+            switch (_g.label) {
+                case 0:
+                    collectionReference = firestore.collection(collection);
+                    if (orderBy) {
+                        query = collectionReference
+                            .orderBy(orderBy, orderDirection == "asc" ? "asc" : "desc")
+                            .limit((_a = offset === null || offset === void 0 ? void 0 : offset.limit) !== null && _a !== void 0 ? _a : 30)
+                            .offset((_b = offset === null || offset === void 0 ? void 0 : offset.skip) !== null && _b !== void 0 ? _b : 0);
+                    }
+                    else {
+                        query = collectionReference
+                            .limit((_c = offset === null || offset === void 0 ? void 0 : offset.limit) !== null && _c !== void 0 ? _c : 30)
+                            .offset((_d = offset === null || offset === void 0 ? void 0 : offset.skip) !== null && _d !== void 0 ? _d : 0);
+                    }
+                    countQuery = collectionReference;
+                    for (key in filter) {
+                        conditionalValue = (0, exports.getConditionalValue)(filter[key]);
+                        query = query.where(key, (_e = conditionalValue.conditional) !== null && _e !== void 0 ? _e : "==", conditionalValue.value);
+                        countQuery = countQuery.where(key, (_f = conditionalValue.conditional) !== null && _f !== void 0 ? _f : "==", conditionalValue.value);
+                    }
+                    if (select) {
+                        selectFilter = Object.keys(select);
+                        query = query.select.apply(query, selectFilter);
+                        countQuery = countQuery.select.apply(countQuery, selectFilter);
+                    }
+                    if (!offset) {
+                        offset = {
+                            skip: 0,
+                            limit: 30,
+                        };
+                    }
+                    return [4 /*yield*/, countQuery.count().get()];
+                case 1:
+                    total = (_g.sent()).data().count;
+                    return [4 /*yield*/, query.get()];
+                case 2:
+                    response = _g.sent();
+                    items = response.docs.map(function (doc) {
+                        var data = doc.data();
+                        return __assign({ id: doc.id }, data);
+                    });
+                    return [2 /*return*/, { total: total, data: items }];
+            }
+        });
     });
-}); };
+};
 exports.filterByPropertyWithTotal = filterByPropertyWithTotal;

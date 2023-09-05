@@ -7,8 +7,8 @@ export declare class GeneralFirestore {
     constructor(collection: string, privateKey?: string, clientEmail?: string);
     static getInstance(collection: string, privateKey?: string, clientEmail?: string): GeneralFirestore;
     getById<T>(id: string): Promise<T | null>;
-    find<T>(filter?: FilterObject, select?: FilterObject, offset?: Offset, orderBy?: string): Promise<T[]>;
-    findWithTotal<T>(filter?: FilterObject, select?: FilterObject, offset?: Offset, orderBy?: string): Promise<{
+    find<T>(filter?: FilterObject, select?: FilterObject, offset?: Offset, orderBy?: string, direction?: string): Promise<T[]>;
+    findWithTotal<T>(filter?: FilterObject, select?: FilterObject, offset?: Offset, orderBy?: string, orderDirection?: string): Promise<{
         total: number;
         data: T[];
     }>;

@@ -76,21 +76,21 @@ var GeneralFirestore = /** @class */ (function () {
             });
         });
     };
-    GeneralFirestore.prototype.find = function (filter, select, offset, orderBy) {
+    GeneralFirestore.prototype.find = function (filter, select, offset, orderBy, direction) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, (0, handle_find_1.handleFind)(this.fireStoreInstance, this.collection, filter, select, offset, orderBy)];
+                    case 0: return [4 /*yield*/, (0, handle_find_1.handleFind)(this.fireStoreInstance, this.collection, filter, select, offset, orderBy, direction)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });
         });
     };
-    GeneralFirestore.prototype.findWithTotal = function (filter, select, offset, orderBy) {
+    GeneralFirestore.prototype.findWithTotal = function (filter, select, offset, orderBy, orderDirection) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, (0, handle_find_1.handleFindWithTotal)(this.fireStoreInstance, this.collection, filter, select, offset, orderBy)];
+                    case 0: return [4 /*yield*/, (0, handle_find_1.handleFindWithTotal)(this.fireStoreInstance, this.collection, filter, select, offset, orderBy, orderDirection)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });
