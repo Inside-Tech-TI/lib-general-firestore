@@ -89,7 +89,7 @@ out
 
 # Nuxt.js build / generate output
 .nuxt
-dist
+# dist
 
 # Gatsby files
 .cache/
@@ -133,4 +133,4 @@ dist
 
 src/modules/general_firestore
 
-dist
+# dist
