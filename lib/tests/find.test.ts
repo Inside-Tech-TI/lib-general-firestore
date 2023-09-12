@@ -1,4 +1,4 @@
-import { GeneralFirestore } from "../lib";
+import { GeneralFirestore } from "..";
 require("dotenv").config();
 
 const collection = (col: string) => {
