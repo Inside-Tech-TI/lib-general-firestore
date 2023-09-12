@@ -3,9 +3,9 @@ require("dotenv").config();
 
 const collection = (col: string) => {
   return GeneralFirestore.getInstance(
-    col,
-    process.env.FIRESTORE_PRIVATE_KEY,
-    process.env.FIRESTORE_CLIENT_EMAIL
+    col
+    // process.env.FIRESTORE_PRIVATE_KEY,
+    // process.env.FIRESTORE_CLIENT_EMAIL
   );
 };
 const collectionTestName: string = "test_collection";
